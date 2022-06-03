@@ -1,0 +1,249 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap");
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Josefin Sans', sans-serif;
+}
+body{
+    height: 100vh;
+    background-color:hsl(235, 21%, 11%);
+
+}
+.image-dark{
+    height:39%;
+    position: relative;
+}
+.body-dark{
+    /* width: 800px; */
+    height: 59%;
+    background-color:hsl(235, 21%, 11%);
+}
+
+.image-dark img{
+    width:100%;
+}
+
+.to-do-box-head{
+    display: flex;
+    justify-content: space-between;
+}
+.to-do-box{
+    position: absolute;
+    /* background-color:yellow; */
+    /* padding: 10%; */
+    width: 500px;
+    top: 30%;
+    left: 31.5%;
+   
+    
+}
+.footer{
+    display: flex;
+    justify-content: space-between;
+   
+    /* border-top: 1px solid hsl(234, 11%, 52%); */
+    padding-inline: 5%;
+    padding-block: 3%;
+    /* position: fixed; */
+    
+    position:sticky;
+    bottom: 0;
+    border-radius: 0 0 5px 5px;
+}
+#FL{
+    background-color:hsl(0, 0%, 98%);
+    color: hsl(236, 9%, 61%);
+}
+#FL p:hover{
+    color: hsl(235, 19%, 35%) ; 
+}
+#FD{
+    background-color:hsl(235, 24%, 19%);
+    color: hsl(234, 11%, 52%);
+}
+.footer p:hover{
+    color:hsl(234, 39%, 85%);
+    cursor: pointer;
+}
+
+.footerall{
+    display: flex;
+    justify-content: space-around;
+    width: 35%;
+}
+.footer p{
+    font-size: 14px;
+}
+.to-do-box h1{
+    margin-bottom: 5%;
+    color: white;
+}
+.to-do-list{
+    /* background-color: gray; */
+    height: 320px;
+    margin-top: 6%;
+    overflow: auto;
+    border-radius: 5px;
+}
+.to-do-list::-webkit-scrollbar {
+    /* width: 10px;
+    height: 10px; */
+    
+  }
+  
+  .to-do-list::-webkit-scrollbar-thumb {
+    /* background: rgba(90, 90, 90); */
+    background: transparent;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+
+  }
+  .to-do-list::-webkit-scrollbar-thumb:hover{
+    background: rgba(90, 90, 90);
+
+  }
+  
+  .to-do-list::-webkit-scrollbar-track {
+    /* background: rgba(0, 0, 0, 0.2); */
+    background: transparent;
+  }
+  .box input[type="checkbox"]{
+    /* display: none; */
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    left: 5%;
+    margin-top: 1%;
+    z-index: 1;
+   
+}
+.box input[type="checkbox"]:checked + p{
+    /* font-style: italic; */
+    text-decoration: line-through;
+    color: hsl(234, 11%, 52%);
+    
+    
+}
+
+
+.box input[type="checkbox"]:checked:hover + p::before,
+.box input[type="checkbox"]:checked + p::before {
+    background-color: violet;
+    content: url("images/icon-check.svg");
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(1.1); 
+    background: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+}
+
+#item{
+    background: none;
+    width: 490px;
+    width: 100%;
+    background-color:hsl(235, 24%, 19%);
+    font-size: 16px;
+    padding-inline: 2%;
+    padding-block: 4%;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+.dark{
+    background-color:hsl(235, 24%, 19%);
+    color:hsl(234, 39%, 85%);
+
+}
+.light{
+    background-color: hsl(0, 0%, 98%);
+    color:  hsl(235, 19%, 35%);
+}
+label{
+    display: flex;
+    justify-content: space-between;
+    /* width:50%; */
+    /* background-color: rebeccapurple; */
+    margin-left: 12%;
+
+}
+
+.box{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 400;
+    padding-inline: 2%;
+    padding-block: 3.8%; 
+   
+    list-style: none;
+    /* align-items: center; */
+}
+#boxdark{
+    background-color:hsl(235, 24%, 19%);
+    color:hsl(234, 39%, 85%);
+    border-bottom: 1px solid hsl(234, 11%, 52%);
+
+}
+#boxlight{
+    background-color: hsl(0, 0%, 98%);
+    color: hsl(235, 19%, 35%);
+    border-bottom: 1px solid hsl(236, 33%, 92%);
+
+}
+.remove{
+    background: url("images/icon-cross.svg");
+    width: 25px;
+    border: none;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    /* opacity: 0; */
+}
+.remove:hover{
+    opacity: 1;
+}
+label p{
+    /* margin-left: 12%; */
+    cursor: pointer;
+}
+/* .TD::before{
+    position: absolute;
+    left: 4.2%;
+    width: 19px;
+    border-radius: 50%;
+} */
+
+   
+
+label p::before{
+    content: "";
+    border: 0.05em solid rgb(180, 180, 180);
+    width: 1.2em;
+    height: 1.2em;
+    position: absolute;
+    left: 4%;
+    border-radius: 50%;
+    transform: scale(0.9);
+    transition: transform 0.2s ease;
+    /* cursor: pointer; */
+}
+
+label:hover::before,
+.box input[type="checkbox"]:hover + label::before{
+    /* background-color: yellow; */
+    /* border: 0.15em solid linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%)); */
+    border: 0.05em solid hsl(280, 87%, 65%);
+}
+
+
+
+
+
+.attribution {
+font-size: 11px; text-align: center;
+}
+.attribution a {
+     color: hsl(228, 45%, 44%); 
+}
