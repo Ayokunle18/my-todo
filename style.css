@@ -32,9 +32,12 @@ body{
     position: absolute;
     /* background-color:yellow; */
     /* padding: 10%; */
-    width: 500px;
-    top: 30%;
-    left: 31.5%;
+    /* width: 500px; */
+    width: 40%;
+    top: 140%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
    
     
 }
@@ -246,4 +249,72 @@ font-size: 11px; text-align: center;
 }
 .attribution a {
      color: hsl(228, 45%, 44%); 
+}
+
+
+@media (max-width: 768px) {
+    .to-do-box{
+        width: 55%;
+        /* background-color: yellow; */
+    }
+}
+
+
+@media (max-width: 425px) {
+    .footer{
+        position: relative;
+    }
+    .footerall{
+        position: absolute;
+        top: 100%;
+        margin-top: 5%;
+        left: 30%;
+        padding: 3%;
+        padding-inline: 15%;
+        font-size: 13px;
+        border-radius: 5px;
+
+    }
+    .footerall p{
+        /* padding-inline: 3%; */
+        margin-inline: 8%;
+    }
+    .to-do-box{
+        width: 85%;
+        top: 130%;
+       
+    }
+    #item{
+        font-size: 15px;
+    }
+    .to-do-box-head h1{
+        font-size: 25px;
+    }
+    .taskBox li{
+        font-size: 15px;
+    }
+    .footer p{
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 375px) {
+    .to-do-box{
+        width: 85%;
+        top: 130%;
+       
+    }
+    #item{
+        font-size: 13px;
+    }
+    .to-do-box-head h1{
+        font-size: 23px;
+    }
+    .taskBox li{
+        font-size: 13px;
+    }
+    .footer p{
+        font-size: 10px;
+    }
+  
 }

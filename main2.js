@@ -15,43 +15,42 @@ let todos = JSON.parse(localStorage.getItem ("todo-list"));
 // let todos = "";
 // todos = JSON.parse(localStorage.getItem ("todo-list"));
 
-filters.forEach(btn =>{
-    btn.addEventListener('click' , () => {
-        showTodo(btn.id);
-    });
-});
+// filters.forEach(btn =>{
+//     btn.addEventListener('click' , () => {
+//         showTodo(btn.id);
+//     });
+// });
 function clear(){
     todos.forEach(one =>{
         if(one.status == "Completed"){
             // todos.splice(one.id, 1);
             // one.remove();
             localStorage.setItem("todo-list" , JSON.stringify(todos));
-            // todos.splice(one.id, 1);
-            showTodo("All");
+            showTodo();
             console.log(one);
         }
     })
     // console.log("aaa");
 
 }
-clearC.addEventListener('click' , clear);
+// clearC.addEventListener('click' , clear);
 
 
-function showTodo(filters){
+function showTodo(){
     // itemsLeft();
     
 
     let li ="";
     if(todos){
          todos.forEach((todo, id) =>{
-             let isCompleted = todo.status === "Completed" ? "checked" : "";
+           
             
-             if (filters == todo.status || filters == "All"){
+            
                 li += ` 
                 <li class="box" id="boxdark">
                   
                 <label for="${id}">
-                <input type="checkbox" onclick="updateStatus(this)" id="${id}" ${isCompleted}>
+                <input type="checkbox" onclick="updateStatus(this)" id="${id}" >
                 <p class="TD">${todo.name}</p>
                 </label>
                 <button class="remove" onclick="deleteTask(${id})"></button>
@@ -60,21 +59,21 @@ function showTodo(filters){
                 </li>
                  `
                  
-             }
+             
         
         
     })
-
-
-    
     }
     taskBox.innerHTML= li;
     // itemsLeft();
 }
-showTodo("All");
+showTodo();
 // span.textContent= document.querySelectorAll(".box").length; 
     
 
+function checked(){
+    
+}
 
 function deleteTask(deleteId){
     // deleteId.preventDefault;
@@ -83,7 +82,7 @@ function deleteTask(deleteId){
     // }
     todos.splice(deleteId, 1);
     localStorage.setItem("todo-list" , JSON.stringify(todos));
-    showTodo("All");
+    showTodo();
   
 
 }
@@ -145,15 +144,12 @@ toggle.addEventListener('click' , () =>{
     if(toggle.getAttribute("id")== "dark1"){
         console.log("this is dark theme");
         // box.id="boxlight";
-        toggle.src='images/icon-sun.svg';
-        // box.setAttribute('id','boxlight');
+        box.setAttribute('id','boxlight');
         toggle.id="light1";
         
     }
     else if(toggle.getAttribute("id")== "light1"){
         console.log("this is light theme");
-        toggle.src='images/icon-moon.svg';
-        // box.setAttribute('id','boxdark');
         // toggle.setAttribute("id" , "dark1");
         // box.id="boxdark";
         toggle.id="dark1";
