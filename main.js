@@ -1,149 +1,168 @@
-const item = document.querySelector("#item");
-const itemm = document.querySelector(".o");
-const ul = document.querySelector("ul");
+const taskInput = document.querySelector("#item");
 const p = document.querySelector("p");
-const btn = document.querySelector("button");
-btn.style.display="none";
-const bgimage= document.querySelector("#dark");
-const toggle= document.querySelector(".image-toggle-sun");
-const bgcolor = document.querySelector(".body-dark");
-const footer = document.querySelector(".footer");
-const body= document.querySelector("body");
-const box = document.querySelectorAll(".box");
-const remain = document.querySelector("#remain");
+const taskBox = document.querySelector(".taskBox");
+const filters = document.querySelectorAll(".footerall p");
+const clearC = document.querySelector("#clear");
+const toggle = document.querySelector(".image-toggle-sun");
+const box= document.querySelector(".box");
 
 
 
-
-let counter = 0;
-let remainder = "";
-
-// function for the to do list items
-const newTD = function(){
-    if(item.value === ''){
-        p.textContent= "Enter a chore";
-     }
-    else{
-       p.textContent= "";
-       const list = document.createElement("li");
-       list.textContent= item.value;
-       item.value ='';
-       const div = document.createElement("div");
-       div.setAttribute("class" , "box");
-          if(bgimage.getAttribute("id")=== "dark"){
-             div.setAttribute("id", "boxdark");
-            }
-          else if(bgimage.getAttribute("id")=== "light"){
-          div.setAttribute("id", "boxlight"); 
-           }
-       const butt = document.createElement("button");
-       butt.setAttribute("class", "remove");
-       butt.style.opacity="0";
-       const checkbox  = document.createElement('input');
-       checkbox.type = 'checkbox';
-       checkbox.className="check";
+//    getting todo list from local storage
+let todos = JSON.parse(localStorage.getItem ("todo-list"));
 
 
-    //    function to calculate remaining items that havent been checked
-     function calculateRem(){
-      remainder= document.querySelectorAll(".check").length - counter;
-      remain.textContent= remainder;
-     }
+// let todos = "";
+// todos = JSON.parse(localStorage.getItem ("todo-list"));
 
-    //  function to update the remaining items
-     checkbox.addEventListener('change' , (e) =>{
-      if(checkbox.checked){
-          counter++;
-      }
-      else{
-        counter--; 
-      }
-          
-      calculateRem();
-
-       })
-   
-    remainder= document.querySelectorAll(".check").length - counter + 1;
-    remain.textContent= remainder;
-
-   
-    // event function for the remove button
-    // hover effect
-   div.addEventListener("mouseover", function() {
-    butt.style.opacity = "1";
-  });
-
-   div.addEventListener("mouseout", function() {
-    butt.style.opacity = "0";
-   })
-
-   // remove function
-   butt.addEventListener('click', () =>{
-    div.parentNode.removeChild(div);
-    if(!checkbox.checked){
-    calculateRem();
-      }
-    else if(checkbox.checked){
-     counter--;
-     calculateRem();
-      }
-     })
-
-
-
-//    event function for dark and light theme for the to do box
-   toggle.addEventListener("click", () =>{
-
-   if(bgimage.getAttribute("id")=== "dark"){
-      div.setAttribute("id", "boxdark");
-   }
-   else if(bgimage.getAttribute("id")=== "light"){
-    div.setAttribute("id", "boxlight"); 
-   }
-
-   });
-  
-   
- // adding to do box to the body of the document
-   div.appendChild(checkbox);
-   div.appendChild(list);
-   div.appendChild(butt);
-   ul.appendChild(div);
-  }
-}
-
-btn.addEventListener('click' , newTD);
-
- item.addEventListener('keydown',  event =>{
-    if (event.key === "Enter") {
-        btn.click();
-  
-    }
-  }
-  );
-
-
-  //  function for the themes of the rest of the page
-  toggle.addEventListener("click", () =>{
-   
-        if(bgimage.getAttribute("id")=== "dark"){
-            bgimage.setAttribute("src", "images/bg-desktop-light.jpg");
-            toggle.setAttribute("src", "images/icon-moon.svg");
-            bgcolor.style.backgroundColor="hsl(236, 33%, 92%)";
-            item.className="light";
-            footer.id="FL";
-            bgimage.id="light";
-            body.style.backgroundColor="hsl(236, 33%, 92%)";
-        }
-        else{
-            bgimage.setAttribute("src", "images/bg-desktop-dark.jpg");
-            toggle.setAttribute("src", "images/icon-sun.svg");
-            bgcolor.style.backgroundColor="hsl(235, 21%, 11%)";
-            item.className="dark";
-            footer.id="FD";
-            bgimage.id="dark";
-            body.style.backgroundColor="hsl(235, 21%, 11%)";
-
+filters.forEach(btn =>{
+    btn.addEventListener('click' , () => {
+        showTodo(btn.id);
+    });
+});
+function clear(){
+    todos.forEach(one =>{
+        if(one.status == "Completed"){
+            // todos.splice(one.id, 1);
+            // one.remove();
+            localStorage.setItem("todo-list" , JSON.stringify(todos));
+            // todos.splice(one.id, 1);
+            showTodo("All");
+            console.log(one);
         }
     })
+    // console.log("aaa");
 
+}
+clearC.addEventListener('click' , clear);
+
+
+function showTodo(filters){
+    // itemsLeft();
+    
+
+    let li ="";
+    if(todos){
+         todos.forEach((todo, id) =>{
+             let isCompleted = todo.status === "Completed" ? "checked" : "";
+            
+             if (filters == todo.status || filters == "All"){
+                li += ` 
+                <li class="box" id="boxdark">
+                  
+                <label for="${id}">
+                <input type="checkbox" onclick="updateStatus(this)" id="${id}" ${isCompleted}>
+                <p class="TD">${todo.name}</p>
+                </label>
+                <button class="remove" onclick="deleteTask(${id})"></button>
+                
+               
+                </li>
+                 `
+                 
+             }
+        
+        
+    })
+
+
+    
+    }
+    taskBox.innerHTML= li;
+    // itemsLeft();
+}
+showTodo("All");
+// span.textContent= document.querySelectorAll(".box").length; 
+    
+
+
+function deleteTask(deleteId){
+    // deleteId.preventDefault;
+    // if(todos[deleteId].status !== "Completed"){
+    //     console.log("it was checked");
+    // }
+    todos.splice(deleteId, 1);
+    localStorage.setItem("todo-list" , JSON.stringify(todos));
+    showTodo("All");
+  
+
+}
+
+function updateStatus(selectedTask){
+ let taskName= selectedTask.parentElement.lastElementChild;
+ if(selectedTask.checked){
+     taskName.classList.add("checked");
+    //  updating the status of the selected task to complete
+     todos[selectedTask.id].status="Completed";
+ }
+ else{
+    taskName.classList.remove ("checked");
+    //  updating the status of the selected task to Active
+    todos[selectedTask.id].status="Active";
+ }
+ localStorage.setItem("todo-list" , JSON.stringify(todos));
+
+
+}
+
+// function itemsLeft(){
+//    let complete= document.querySelectorAll(".checked").length;
+//    let all= document.querySelectorAll(".box").length;
+//    let left = all-complete;
+//    let span = document.querySelector("#remain");
+//    span.textContent= left;
+// }
+
+taskInput.addEventListener("keyup" , e =>{
+   let userTask= taskInput.value.trim();
+   if(e.key == "Enter" && userTask){
+       p.textContent= "";
+       taskInput.value="";
+    
+       if(!todos){
+           todos= [] ;
+       }
+       let taskInfo= {name: userTask , status: "Active"};
+       todos.push(taskInfo); // adding new task to todos array
+       localStorage.setItem("todo-list" , JSON.stringify(todos));
+       showTodo("All");
+       
+
+
+  
+  
+   }
+   else if(e.key == "Enter" && !userTask){
+    p.textContent= "Enter a chore";
+   }
+})
+
+
+toggle.addEventListener('click' , () =>{
+    
+    // taskInput.style.backgroundColor="yellow";
+    console.log("clicked");
+    if(toggle.getAttribute("id")== "dark1"){
+        console.log("this is dark theme");
+        // box.id="boxlight";
+        toggle.src='images/icon-sun.svg';
+        // box.setAttribute('id','boxlight');
+        toggle.id="light1";
+        
+    }
+    else if(toggle.getAttribute("id")== "light1"){
+        console.log("this is light theme");
+        toggle.src='images/icon-moon.svg';
+        // box.setAttribute('id','boxdark');
+        // toggle.setAttribute("id" , "dark1");
+        // box.id="boxdark";
+        toggle.id="dark1";
+    }
+
+   
+
+})
+
+
+
+   
